@@ -11,9 +11,45 @@ Step 1: Start the PWM (Put in main.c before your loop)
 
 Add this line right after your peripherals initialize to turn the signal on:
 
-c
 ```
+c
+
 HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
 ```
-Use code with caution.
+
+
+
+Step 2: Change the Duty Cycle (Inside your while(1) loop)
+
+Use this specific macro to change the Pulse (CCR1) value dynamically. Since your ARR is 100, the value you type here directly equals your duty cycle percentage (0 to 100):
+```
+c
+// Set duty cycle to 25% (ON for 25 ticks, OFF for 75 ticks)
+__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 25);
+```
+
+
+
+Complete Code:
+```
+/* Initialize all configured peripherals */
+MX_GPIO_Init();
+MX_TIM1_Init();
+
+/* 1. Start the PWM signal on Channel 1 */
+HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+
+while (1)
+{
+    /* 2. Change duty cycle to 10% (Dim) */
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 10);
+    HAL_Delay(1000); // Wait 1 second
+    
+    /* 3. Change duty cycle to 90% (Bright) */
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 90);
+    HAL_Delay(1000); // Wait 1 second
+}
+```
+
+
 

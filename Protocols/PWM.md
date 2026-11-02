@@ -52,4 +52,7 @@ while (1)
 ```
 
 
+Any time a microchip needs to move data from the CPU's memory (parallel data) to a single wire (serial data), it must use a shift register. Because of this, you will always see:
+1. A TX Empty flag (like TXE) to prevent the CPU from overwriting data.
+2. An RX Not Empty flag (like RXNE) to prevent the CPU from reading garbage data before it fully arrives.
 

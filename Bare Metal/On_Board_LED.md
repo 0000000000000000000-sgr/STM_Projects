@@ -1,6 +1,6 @@
 # Project Name: Bare Metal On-Board LED
 
-<p> Basic concept
+<P> Basic concept
 To blink an LED, we need to:
 
 Enable the GPIO peripheral clock.
